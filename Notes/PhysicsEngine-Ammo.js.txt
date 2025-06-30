@@ -1,4 +1,5 @@
 Installation
+-------------------------------------------------------------------------------------------------------------------------------
 <head>
 	<!-- Load ammo.js (WASM version for best performance) -->
         <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
@@ -7,7 +8,7 @@ Installation
 </head>
 
 How A-Frame and the ammo.js physics engine interpret the use of ammo-body and ammo-shape in your code:
-
+-------------------------------------------------------------------------------------------------------------------------------
 High-Level Concepts
 A-Frame is a web framework for building 3D/VR experiences.
 ammo.js is a JavaScript port of the Bullet Physics engine, used for real-time physics simulation.
