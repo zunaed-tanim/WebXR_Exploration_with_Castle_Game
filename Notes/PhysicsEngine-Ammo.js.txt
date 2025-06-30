@@ -1,0 +1,41 @@
+Installation
+<head>
+	<!-- Load ammo.js (WASM version for best performance) -->
+        <script src="https://cdn.jsdelivr.net/gh/MozillaReality/ammo.js@8bbc0ea/builds/ammo.wasm.js"></script>
+        <!-- Load the c-frame physics system (compatible with latest A-Frame) -->
+        <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-physics-system@v4.2.3/dist/aframe-physics-system.js"></script>
+</head>
+
+How A-Frame and the ammo.js physics engine interpret the use of ammo-body and ammo-shape in your code:
+
+High-Level Concepts
+A-Frame is a web framework for building 3D/VR experiences.
+ammo.js is a JavaScript port of the Bullet Physics engine, used for real-time physics simulation.
+The aframe-physics-system integrates ammo.js with A-Frame, letting you add physics to your 3D entities using components like ammo-body and ammo-shape.
+How ammo-body and ammo-shape Work
+ammo-body
+Applied to an entity (e.g., <a-entity id="tower-central" ammo-body="type: static">).
+Defines the physics body type for the entity:
+static: Immovable, used for things like terrain or buildings.
+dynamic: Moves and reacts to forces/collisions.
+kinematic: Moves only when you set its position/rotation directly.
+The body acts as a container for one or more collision shapes.
+ammo-shape
+Applied to child primitives (e.g., <a-cylinder ammo-shape="type: cylinder">).
+Defines the collision shape and its type (box, sphere, cylinder, cone, etc.).
+Each shape is positioned and scaled according to its attributes, and all shapes are combined to form the overall collision geometry for the parent entity.
+How Your Example Is Interpreted
+A-Frame creates a single physics body for tower-central (static, immovable).
+Each child with ammo-shape adds a collision shape to this body, at the specified position/scale.
+The result: the tower is a compound physics object, made up of cones and cylinders, matching your visual model.
+ammo.js uses this compound shape for collision detection and physics simulation.
+Gotchas
+Visual vs. Physics Geometry: The visual model and the physics shape can differ if you forget to add ammo-shape to a child, or if positions/scales don’t match.
+Performance: Compound shapes are more expensive than simple shapes, but much more accurate for complex objects.
+Static Bodies: Since your tower is static, it won’t move or react to forces, but other dynamic objects will collide with it.
+Summary Table
+Component	Purpose	Applied To
+ammo-body	Defines physics body type	Parent entity
+ammo-shape	Defines collision shape/type	Child primitives
+In short:
+A-Frame + ammo.js treat your entity as a single static physics object, whose collision boundaries are built from all the child shapes you define with ammo-shape.
